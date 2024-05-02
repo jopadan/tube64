@@ -1,2 +1,3 @@
-Tube64/*.o
-Tube64/bin/tube64
+*.o
+bin/tube64
+tube.map
