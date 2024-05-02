@@ -11,39 +11,14 @@
 #ifndef HEXRAYS_DEFS_H
 #define HEXRAYS_DEFS_H
 
-#include <stdint.h>
-#include <string.h>
-
-#include "Type.h"
+#include "types.h"
+#include <cstring>
 
 #include "allocator.h"
 
 #define FIX_ALIASING_AND_UNALIGNED /* need for ARM & DSP */
 #define MCPY memcpy
 
-typedef long long             int64;
-typedef signed long long      sint64;
-typedef unsigned long long    uint64;
-
-typedef          char   int8;
-typedef   signed char   sint8;
-typedef unsigned char   uint8;
-typedef          short  int16;
-typedef   signed short  sint16;
-typedef unsigned short  uint16;
-typedef          int    int32;
-typedef   signed int    sint32;
-typedef unsigned int    uint32;
-
-typedef unsigned int uint;
-typedef unsigned char uchar;
-typedef unsigned short ushort;
-typedef unsigned long ulong;
-
-typedef int8 _BOOL1;
-typedef int16 _BOOL2;
-typedef int32 _BOOL4;
-//typedef int64 _BOOL8;
 
 static inline char __CFSHL__(int x,char y) //флаг переноса при сдвиге влево
 {
@@ -220,40 +195,40 @@ using UA=T;
 #define WORD7(x)   WORDn(x,  7)
 
 // Generate a pair of operands. S stands for 'signed'
-#define __SPAIR16__(high, low)  (((int16)  (high) <<  8) | (uint8) (low))
-#define __SPAIR32__(high, low)  (((int32)  (high) << 16) | (uint16)(low))
-#define __SPAIR64__(high, low)  (((int64)  (high) << 32) | (uint32)(low))
-#define __SPAIR128__(high, low) (((int128) (high) << 64) | (uint64)(low))
-#define __PAIR16__(high, low)   (((uint16) (high) <<  8) | (uint8) (low))
-#define __PAIR32__(high, low)   (((uint32) (high) << 16) | (uint16)(low))
-#define __PAIR64__(high, low)   (((uint64) (high) << 32) | (uint32)(low))
-#define __PAIR128__(high, low)  (((uint128)(high) << 64) | (uint64)(low))
+#define __SPAIR16__(high, low)  (((i16)  (high) <<  8) | (u8) (low))
+#define __SPAIR32__(high, low)  (((i32)  (high) << 16) | (u16)(low))
+#define __SPAIR64__(high, low)  (((i64)  (high) << 32) | (u32)(low))
+#define __SPAIR128__(high, low) (((i128) (high) << 64) | (u64)(low))
+#define __PAIR16__(high, low)   (((u16) (high) <<  8) | (u8) (low))
+#define __PAIR32__(high, low)   (((u32) (high) << 16) | (u16)(low))
+#define __PAIR64__(high, low)   (((u64) (high) << 32) | (u32)(low))
+#define __PAIR128__(high, low)  (((u128)(high) << 64) | (u64)(low))
 
 // sign flag
-template<class T> int8 __SETS__(T x)
+template<class T> i8 __SETS__(T x)
 {
   if ( sizeof(T) == 1 )
-    return int8(x) < 0;
+    return i8(x) < 0;
   if ( sizeof(T) == 2 )
-    return int16(x) < 0;
+    return i16(x) < 0;
   if ( sizeof(T) == 4 )
-    return int32(x) < 0;
-  return int64(x) < 0;
+    return i32(x) < 0;
+  return i64(x) < 0;
 }
 
 // overflow flag of addition (x+y)
-template<class T, class U> int8 __OFADD__(T x, U y)
+template<class T, class U> i8 __OFADD__(T x, U y)
 {
   if ( sizeof(T) < sizeof(U) )
   {
     U x2 = x;
-    int8 sx = __SETS__(x2);
+    i8 sx = __SETS__(x2);
     return ((1 ^ sx) ^ __SETS__(y)) & (sx ^ __SETS__(U(x2+y)));
   }
   else
   {
     T y2 = y;
-    int8 sx = __SETS__(x);
+    i8 sx = __SETS__(x);
     return ((1 ^ sx) ^ __SETS__(y2)) & (sx ^ __SETS__(T(x+y2)));
   }
 }
@@ -261,7 +236,7 @@ template<class T, class U> int8 __OFADD__(T x, U y)
 // rotate left
 template<class T> T __ROL__(T value, int count)
 {
-  const uint nbits = sizeof(T) * 8;
+  const size_t nbits = sizeof(T) * 8;
 
   if ( count > 0 )
   {
@@ -282,41 +257,41 @@ template<class T> T __ROL__(T value, int count)
   return value;
 }
 
-inline uint8  __ROL1__(uint8  value, int count) { return __ROL__((uint8)value, count); }
-inline uint16 __ROL2__(uint16 value, int count) { return __ROL__((uint16)value, count); }
-inline uint32 __ROL4__(uint32 value, int count) { return __ROL__((uint32)value, count); }
-//inline uint64 __ROL8__(uint64 value, int count) { return __ROL__((uint64)value, count); }
-inline uint8  __ROR1__(uint8  value, int count) { return __ROL__((uint8)value, -count); }
-inline uint16 __ROR2__(uint16 value, int count) { return __ROL__((uint16)value, -count); }
-inline uint32 __ROR4__(uint32 value, int count) { return __ROL__((uint32)value, -count); }
-//inline uint64 __ROR8__(uint64 value, int count) { return __ROL__((uint64)value, -count); }
+inline u8  __ROL1__(u8  value, int count) { return __ROL__((u8)value, count); }
+inline u16 __ROL2__(u16 value, int count) { return __ROL__((u16)value, count); }
+inline u32 __ROL4__(u32 value, int count) { return __ROL__((u32)value, count); }
+inline u64 __ROL8__(u64 value, int count) { return __ROL__((u64)value, count); }
+inline u8  __ROR1__(u8  value, int count) { return __ROL__((u8)value, -count); }
+inline u16 __ROR2__(u16 value, int count) { return __ROL__((u16)value, -count); }
+inline u32 __ROR4__(u32 value, int count) { return __ROL__((u32)value, -count); }
+inline u64 __ROR8__(u64 value, int count) { return __ROL__((u64)value, -count); }
 
 // carry flag of addition (x+y)
-template<class T, class U> int8 __CFADD__(T x, U y)
+template<class T, class U> i8 __CFADD__(T x, U y)
 {
   int size = sizeof(T) > sizeof(U) ? sizeof(T) : sizeof(U);
   if ( size == 1 )
-    return uint8(x) > uint8(x+y);
+    return u8(x) > u8(x+y);
   if ( size == 2 )
-    return uint16(x) > uint16(x+y);
+    return u16(x) > u16(x+y);
   if ( size == 4 )
-    return uint32(x) > uint32(x+y);
-  return uint64(x) > uint64(x+y);
+    return u32(x) > u32(x+y);
+  return u64(x) > u64(x+y);
 }
 
 // overflow flag of subtraction (x-y)
-template<class T, class U> int8 __OFSUB__(T x, U y)
+template<class T, class U> i8 __OFSUB__(T x, U y)
 {
   if ( sizeof(T) < sizeof(U) )
   {
     U x2 = x;
-    int8 sx = __SETS__(x2);
+    i8 sx = __SETS__(x2);
     return (sx ^ __SETS__(y)) & (sx ^ __SETS__(U(x2-y)));
   }
   else
   {
     T y2 = y;
-    int8 sx = __SETS__(x);
+    i8 sx = __SETS__(x);
     return (sx ^ __SETS__(y2)) & (sx ^ __SETS__(T(x-y2)));
   }
 }

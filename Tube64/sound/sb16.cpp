@@ -1,12 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "sb16.h"
 
-#include "SB16.H"
-
-#include "HMP.H"
-
-#include "Type.h"
+#include "hmp.h"
 
 #include "defs.h"
 #include "misc.h"

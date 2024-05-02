@@ -15,14 +15,19 @@ typedef struct dseg3
 	char     asc[12];                  // 0x11c
 	char     congrats_condition[3][48];// 0x128
 	char     file_error[12];           // 0x1b8
-	char     data_lev05d_dat[20];      // 0x1c4
-	char     data_hiscore_dat[20];     // 0x1d8
-	char     data_tunnel_dat[44];      // 0x1ec
-	char     data_tables_dat[16];      // 0x208
-	char     data_3dobs_dat[16];       // 0x218
-	char     data_3dpoints_dat[20];    // 0x228
-	char     data_3dfaces_dat[20];     // 0x23c
-	char     data_tex02d_dat[212];     // 0x250
+
+	struct file_path
+	{
+		char     lev05d_dat[20];      // 0x1c4
+		char     hiscore_dat[20];     // 0x1d8
+		char     tunnel_dat[44];      // 0x1ec
+		char     tables_dat[16];      // 0x208
+		char     3dobs_dat[16];       // 0x218
+		char     3dpoints_dat[20];    // 0x228
+		char     3dfaces_dat[20];     // 0x23c
+		char     tex02d_dat[2][44];   // 0x250
+	};
+	char     unknown[124];             // 0x2A8
 	char     bf_music[64];             // 0x324
 	char     none[8];                  // 0x364
 	char     bf_sound[20];             // 0x36c
@@ -180,3 +185,4 @@ typedef struct dseg3_940
 	int16_t word_22EDAE;               // 0xfdae
         int16_t word_22EDB0;               // 0xfdb0
 } dseg3_940_t;
+	#define WScreen (*(int *)(DSEG3+0x00094E88))

@@ -1,6 +1,6 @@
 #include <string.h>
 
-#include "Type.h"
+#include "types.h"
 
 #include "misc.h"
 

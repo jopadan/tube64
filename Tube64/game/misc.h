@@ -1,14 +1,7 @@
 #ifndef _LOW_LEVEL_H_
 #define _LOW_LEVEL_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include <stdio.h>
-#include <stdint.h>
-
-#include "Type.h"
+#include "types.h"
 
 /*
 bit shifts left
@@ -28,9 +21,5 @@ void LoadDSEG(void);
 void FreeDSEG(void);
 
 u32 FileSize(FILE *f);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

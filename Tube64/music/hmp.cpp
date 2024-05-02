@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "types.h"
 
 #include <SDL2/SDL.h>
 
@@ -21,17 +19,16 @@
 #include "hmpopl.h"
 #include "hmpfile.h"
 
-#include "Type.h"
 
 #include "defs.h"
 #include "misc.h"
 
 #include "allocator.h"
 
-#include "MPU401.c"
+#include "mpu401.c"
 
-#include "HMP.H"
-#include "SB16.H"
+#include "hmp.h"
+#include "sb16.h"
 
 #define KDELTA ((double)(((double)(SB_SAMPLE*TEMPO))/((double)FS))) /* коэффициент для дельты, чтобы обеспечить нужный темп мелодий */
 

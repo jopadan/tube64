@@ -1,11 +1,6 @@
-#ifndef _HMP_H_
-#define _HMP_H_
+#pragma once
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include "Type.h"
+#include "types.h"
 
 extern u8 MusicMode;
 
@@ -14,8 +9,3 @@ void MY_FreeMusic(void);
 void MY_StartMusic(short a1, unsigned char a2);
 void MY_StopMusic(void);
 
-#ifdef __cplusplus
-}
-#endif
-
-#endif

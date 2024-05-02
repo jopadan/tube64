@@ -1,10 +1,6 @@
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <SDL2/SDL.h>
+#include "types.h"
 
-#include "Type.h"
+#include <SDL2/SDL.h>
 
 #include "misc.h"
 
@@ -15,8 +11,8 @@
 
 #include "defs.h"
 
-#include "HMP.H"  //Music
-#include "SB16.H" //Sound
+#include "hmp.h"  //Music
+#include "sb16.h" //Sound
 
 #include "in_al_60h.c" //keyboard scancodes
 

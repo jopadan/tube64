@@ -1,11 +1,6 @@
-#ifndef _SB16_H_
-#define _SB16_H_
+#pragma once
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include "Type.h"
+#include "types.h"
 
 #define FS       44100 /* частота семплирования          */
 #define TEMPO      120 /* темп мелодий                   */
@@ -20,10 +15,4 @@ void MY_FadeOutSample(short a1, short a2, short a3, short a4);
 void MY_FadeInSample(short a1, short a2, short a3, short a4);
 void MY_SetSamplePitch(short a1, short a2, short a3);
 void MY_SetSamplePan(short a1, short a2, unsigned short a3);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif
 
