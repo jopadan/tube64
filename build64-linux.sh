@@ -12,8 +12,8 @@ rm -f bin/tube64
 #read -rsn1
 
 INCLUDES="-Isrc/game -Isrc/music -Isrc/sound -Ideps/tlsf -Isrc/tlsf"
-CXXFLAGS+="-m64 -Ofast -DNDEBUG -ffunction-sections -fdata-sections -fno-rtti -ftree-vectorize -fno-math-errno -fmax-errors=1 -fomit-frame-pointer -ffast-math -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -Wall -Wno-unused-variable -Wno-unused-but-set-variable -Wno-paranthese -Wno-maybe-uninitialized -Wno-unused-result -Wno-format-security ${INCLUDES}"
-
+CFLAGS+="-m64 -Ofast -DNDEBUG -ffunction-sections -fdata-sections -ftree-vectorize -fno-math-errno -fmax-errors=1 -fomit-frame-pointer -ffast-math -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -Wall -Wno-unused-variable -Wno-unused-but-set-variable -Wno-parentheses -Wno-maybe-uninitialized -Wno-unused-result -Wno-format-security ${INCLUDES}"
+CXXFLAGS+="${CFLAGS} -fno-rtti"
 
 echo 'Compile tube...'
 g++ -m64 ${CXXFLAGS} -c src/game/tube.cpp -fsigned-char
@@ -21,10 +21,10 @@ g++ -m64 ${CXXFLAGS} -c src/game/trig.cpp
 g++ -m64 ${CXXFLAGS} -c src/game/misc.cpp
 g++ -m64 ${CXXFLAGS} -D_OPL3_ -c src/music/hmp.cpp
 g++ -m64 ${CXXFLAGS} -D_OPL3_ -c src/sound/sb16.cpp
-gcc -m64 ${CXXFLAGS} -c src/music/hmpfile.c
-gcc -m64 ${CXXFLAGS} -c src/music/hmpopl.c
-gcc -m64 ${CXXFLAGS} -c src/music/opl3.c -o opl.o
-gcc -m64 ${CXXFLAGS} -c deps/tlsf/tlsf.c
+gcc -m64 ${CFLAGS} -c src/music/hmpfile.c
+gcc -m64 ${CFLAGS} -c src/music/hmpopl.c
+gcc -m64 ${CFLAGS} -c src/music/opl3.c -o opl.o
+gcc -m64 ${CFLAGS} -c deps/tlsf/tlsf.c
 g++ -m64 ${CXXFLAGS} -c src/tlsf/allocator.cpp
 
 #fi

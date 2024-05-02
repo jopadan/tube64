@@ -185,4 +185,3 @@ typedef struct dseg3_940
 	int16_t word_22EDAE;               // 0xfdae
         int16_t word_22EDB0;               // 0xfdb0
 } dseg3_940_t;
-	#define WScreen (*(int *)(DSEG3+0x00094E88))
